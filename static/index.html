@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>GPS Vehicle Tracking System - Live Demo</title>
+  <!-- Google Fonts & Leaflet CSS -->
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap">
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div id="app" class="app-container">
+    <!-- Header -->
+    <header class="navbar">
+      <div class="brand">
+        <span class="icon">🚌</span>
+        <h1>GPS Vehicle Tracker</h1>
+      </div>
+      <div id="user-profile" class="user-profile hidden">
+        <span id="user-display-name">User A</span>
+        <button id="logout-btn" class="btn btn-secondary btn-sm">Logout</button>
+      </div>
+    </header>
+
+    <!-- Login Container -->
+    <main id="login-section" class="center-stage">
+      <div class="card login-card">
+        <div class="card-header text-center">
+          <div class="logo-circle">🚌</div>
+          <h2>Vehicle Tracking Portal</h2>
+          <p class="subtitle">Authenticate to view assigned route & real-time telemetry</p>
+        </div>
+
+        <div id="login-error" class="alert alert-danger hidden"></div>
+
+        <form id="login-form">
+          <div class="form-group">
+            <label for="email">Email Address</label>
+            <input type="email" id="email" class="form-control" value="usera@test.com" required>
+          </div>
+
+          <div class="form-group">
+            <label for="password">Password</label>
+            <input type="password" id="password" class="form-control" value="password123" required>
+          </div>
+
+          <button type="submit" class="btn btn-primary btn-block">Sign In</button>
+        </form>
+
+        <div class="demo-select">
+          <p>Quick Demo Switch:</p>
+          <div class="btn-group">
+            <button id="demo-user-a" class="btn btn-outline">User A (Route A / BUS-001)</button>
+            <button id="demo-user-b" class="btn btn-outline">User B (Route B / BUS-002)</button>
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <!-- Dashboard & Map View Container -->
+    <main id="dashboard-section" class="dashboard-grid hidden">
+      <!-- Sidebar Info Cards -->
+      <aside class="sidebar">
+        <!-- Route Card -->
+        <div class="card info-card">
+          <div class="card-title">
+            <span class="badge badge-route">ASSIGNED ROUTE</span>
+          </div>
+          <h3 id="route-name">Route A</h3>
+          <div class="route-details">
+            <div class="point"><span class="dot green"></span> Start: <strong id="route-start">Central Station</strong></div>
+            <div class="point"><span class="dot red"></span> End: <strong id="route-end">North Tech Park</strong></div>
+          </div>
+        </div>
+
+        <!-- Vehicle Card -->
+        <div class="card info-card">
+          <div class="card-title">
+            <span class="badge badge-vehicle">ASSIGNED VEHICLE</span>
+            <span id="vehicle-status" class="status-indicator active">ACTIVE</span>
+          </div>
+          <h2 id="vehicle-code">BUS-001</h2>
+          <div class="metrics">
+            <div class="metric-box">
+              <span class="metric-label">Current Speed</span>
+              <span id="vehicle-speed" class="metric-value">42.5 km/h</span>
+            </div>
+            <div class="metric-box">
+              <span class="metric-label">Last Updated</span>
+              <span id="vehicle-updated" class="metric-value">Just now</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Security Authorization Test Card -->
+        <div class="card info-card security-card">
+          <h4>🔐 Authorization Test</h4>
+          <p class="small-text">Test backend 403 Forbidden enforcement by querying unauthorized vehicle:</p>
+          <button id="test-unauthorized-btn" class="btn btn-warning btn-block">Query BUS-002 (Forbidden)</button>
+          <div id="security-result" class="security-result hidden"></div>
+        </div>
+      </aside>
+
+      <!-- Map View -->
+      <section class="map-wrapper">
+        <div id="map" class="map-container"></div>
+      </section>
+    </main>
+  </div>
+
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
